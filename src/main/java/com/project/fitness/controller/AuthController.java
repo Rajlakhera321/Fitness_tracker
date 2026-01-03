@@ -1,11 +1,13 @@
 package com.project.fitness.controller;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.fitness.dto.RegisterRequest;
+import com.project.fitness.dto.UserResponse;
 import com.project.fitness.model.User;
 import com.project.fitness.service.UserService;
 
@@ -19,8 +21,8 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
+    public ResponseEntity<UserResponse> register(@RequestBody RegisterRequest req) {
         // Registration logic here
-        return userService.register(user);
+        return ResponseEntity.ok(userService.register(req));
     }
 }
