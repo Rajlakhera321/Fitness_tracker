@@ -1,8 +1,5 @@
 package com.project.fitness.service;
 
-import java.time.Instant;
-import java.time.ZoneOffset;
-
 import org.springframework.stereotype.Service;
 
 import com.project.fitness.dto.RegisterRequest;
@@ -24,8 +21,6 @@ public class UserService {
                 .password(req.getPassword())
                 .firstName(req.getFirstName())
                 .lastName(req.getLastName())
-                // .createdAt(Instant.now().atOffset(ZoneOffset.UTC))
-                // .updatedAt(Instant.now().atOffset(ZoneOffset.UTC))
                 .build();
         User savedUser = userRepository.save(user);
         return mapToResponse(savedUser);
