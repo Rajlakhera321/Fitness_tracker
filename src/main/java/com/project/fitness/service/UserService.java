@@ -3,6 +3,7 @@ package com.project.fitness.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.project.fitness.dto.LoginRequest;
 import com.project.fitness.dto.RegisterRequest;
 import com.project.fitness.dto.UserResponse;
 import com.project.fitness.model.User;
@@ -42,5 +43,22 @@ public class UserService {
         response.setUpdatedAt(savedUser.getUpdatedAt());
         response.setRole(savedUser.getRole());
         return response;
+    }
+
+    public User authenticateUser(LoginRequest loginRequest) {
+        try {
+            User user = userRepository.findByEmail(loginRequest.getEmail());
+
+            if (user == null)
+                throw new RuntimeException("User not found");
+
+            if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword()))
+                throw new RuntimeException("Invalid credentials");
+
+            return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Authentication failed");
+        }
     }
 }
