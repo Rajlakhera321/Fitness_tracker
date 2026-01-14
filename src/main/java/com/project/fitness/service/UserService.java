@@ -19,7 +19,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserResponse register(RegisterRequest req) {
+    public UserResponse register(RegisterRequest req) throws Exception {
         UserRole role = req.getRole() != null ? req.getRole() : UserRole.USER;
         User user = User.builder()
                 .email(req.getEmail())
@@ -32,7 +32,7 @@ public class UserService {
         return mapToResponse(savedUser);
     }
 
-    public UserResponse mapToResponse(User savedUser) {
+    public UserResponse mapToResponse(User savedUser) throws Exception {
         UserResponse response = new UserResponse();
         response.setId(savedUser.getId());
         response.setEmail(savedUser.getEmail());
@@ -45,7 +45,7 @@ public class UserService {
         return response;
     }
 
-    public User authenticateUser(LoginRequest loginRequest) {
+    public User authenticateUser(LoginRequest loginRequest) throws Exception {
         try {
             User user = userRepository.findByEmail(loginRequest.getEmail());
 
