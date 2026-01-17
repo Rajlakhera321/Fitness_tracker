@@ -22,12 +22,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "my_user")
 public class User {
 
     @Id
